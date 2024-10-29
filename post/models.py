@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Post(models.Model):
     # post_comment : reverse call
+    
     created_by = models.ForeignKey(User , on_delete=models.CASCADE , related_name='userpost')
     description = models.CharField(max_length=150 , null=True , blank=True)
     media_link = models.CharField(max_length=200 , null=True , blank=True)
@@ -15,7 +16,7 @@ class Post(models.Model):
         return f'{self.created_by} posted "{self.description}" {self.created_at}'
 
 class PostComment(models.Model):
-    created_by = models.ForeignKey(User , on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User , on_delete=models.CASCADE , default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     comment = models.CharField(max_length=230)
